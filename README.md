@@ -34,19 +34,19 @@ Inspiriert von: [Particle Life WebGL Demo](https://webgl-particle-life.netlify.a
 
 ### Voraussetzungen
 
-- Python 3.10 oder höher
+- Python
 - Git
 
 ### Setup
 
 git clone [https://github.com/RonaldCrack10/Particle_Life_Simulator.git]
-cd particle-life
 
+- cd particle-life
 - evtl. virtuelle Umgebung erstellen
 - Pakete installieren
 - Programm starten
 
-python -m particle_life
+- python -m particle_life
 
 ### Simulation starten mit benutzdefinierten Parametern
 #### Parameter, Beschreibung und Standardwert
@@ -164,7 +164,7 @@ particle-life/
 
 ### Milestone 3: Testing & CI
 
- Unit Tests schreiben (pytest)
+ Unit Tests schreiben
  >70% Code Coverage
  GitHub Actions CI 
  Linting im CI
