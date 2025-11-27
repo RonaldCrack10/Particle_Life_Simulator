@@ -39,7 +39,6 @@ Inspiriert von: [Particle Life WebGL Demo](https://webgl-particle-life.netlify.a
 
 ### Setup
 
-```bash
 git clone [https://github.com/RonaldCrack10/Particle_Life_Simulator.git]
 cd particle-life
 
@@ -47,7 +46,6 @@ cd particle-life
 - Pakete installieren
 - Programm starten
 
-```bash
 python -m particle_life
 
 ### Simulation starten mit benutzdefinierten Parametern
@@ -105,7 +103,6 @@ particle-life/
 ├── pyproject.toml             # Projekt-Konfiguration & Dependencies
 ├── README.md                  # Diese Datei
 └── .gitignore                 # Dateien, die Git ignorieren soll
-
 
 
 ## Architektur
