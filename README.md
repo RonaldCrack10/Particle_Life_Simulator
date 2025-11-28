@@ -25,9 +25,9 @@ Inspiriert von: [Particle Life WebGL Demo](https://webgl-particle-life.netlify.a
 
 - **4 Partikeltypen** mit individuellen Farben (Rot, Gelb, Grün, Blau)
 - **Interaktionsmatrix** für Anziehung/Abstoßung zwischen allen Typkombinationen
-- **Echtzeit-Rendering** mit VisPy (OpenGL-basiert)
-- **Interaktive GUI** zur Live-Anpassung aller Parameter
-- **Performance-optimiert** mit NumPy und Numba (JIT-Kompilierung)
+- **Echtzeit-Rendering** mit VisPy?
+- **Interaktive GUI** zur Live-Anpassung aller Parameter (optional)
+- **Performance-optimiert** mit NumPy (und Numba?)
 - **Professionelle Codequalität** mit Linting, Testing und CI/CD
 
 ## Installation
