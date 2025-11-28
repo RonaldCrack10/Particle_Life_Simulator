@@ -148,34 +148,34 @@ particle-life/
 
 ### Milestone 1: Kernlogik
 
- Projektstruktur & Setup
- ParticleSystem Klasse
- InteractionMatrix Klasse
- Simulation Klasse mit Update-Loop
- Konsolen-Output zum Testen
+- Projektstruktur & Setup
+- ParticleSystem Klasse
+- InteractionMatrix Klasse
+- Simulation Klasse mit Update-Loop
+- Konsolen-Output zum Testen
 
 ### Milestone 2: Visualisierung & GUI
 
- Renderer für Partikel Zeichnen
- Echtzeit-Darstellung
- 4 Farben für 4 Typen
- GUI für Parameter
- ControlPanel mit Live-Parameteranpassung
+- Renderer für Partikel Zeichnen
+- Echtzeit-Darstellung
+- 4 Farben für 4 Typen
+- GUI für Parameter
+- ControlPanel mit Live-Parameteranpassung
 
 ### Milestone 3: Testing & CI
 
-Unit Tests schreiben
->70% Code Coverage
-GitHub Actions CI
-Linting im CI
+- Unit Tests schreiben
+- >70% Code Coverage
+- GitHub Actions CI
+- Linting im CI
 
 
 ### Milestone 4: Optimierung
 
- Profiling & Bottleneck-Analyse
- Numba o.ä. für JIT-Optimierung
- ≥1.000 Partikel performant
- Dokumentation zuende schreiben
+- Profiling & Bottleneck-Analyse
+- Numba o.ä. für JIT-Optimierung
+- ≥1.000 Partikel performant
+- Dokumentation zuende schreiben
 
 ## Sinnvolle Bibliotheken
 - NumPy
