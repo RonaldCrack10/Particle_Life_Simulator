@@ -16,7 +16,7 @@ jobs:
       with:
         python-version: '3.10'
         environment-file: pls_env.yml
-        activate-environment: myenv
+        activate-environment: pls_env
         auto-activate-base: false
         
     - name: Lint with flake8
