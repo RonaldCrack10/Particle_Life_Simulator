@@ -1,5 +1,5 @@
 
-from config import NUM_PARTICLES
+from Config.config import NUM_PARTICLES
 import numpy as np
 
 def generate_particle() -> None:
