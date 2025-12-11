@@ -4,63 +4,62 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>756</x>
-      <y>462</y>
+      <x>588</x>
+      <y>476</y>
       <w>322</w>
       <h>266</h>
     </coordinates>
     <panel_attributes>Particles
 --
-- particles: np.ndarray
-- velocity: np.ndarray
+- x: np.ndarray
+- y: np.ndarray
 - radius: np.ndarray #particles sollte doch lieber mit nur x,y und typ sein. vielleicht wird typ auch ein eigenes Array
 - type: np.ndarray
 --
-+ fill_arrays() -&gt; None
-+ calc_velocity() #so wie ein Mensch,soll sich ein Partikel von selbst bewgenf benutzt calc_friction (oder die methode calc_force) der classe Enviormoment auf mit den parametern (type, velocity, radius, particles) oder doch import?
-+ update_arr() -&gt; None</panel_attributes>
++ get_x()
++ get_y()
++ set_x()
++ set_y()
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1484</x>
-      <y>462</y>
+      <x>1456</x>
+      <y>476</y>
       <w>294</w>
       <h>266</h>
     </coordinates>
     <panel_attributes>Simulation
 --
-#Operation(i: int): int
-/+AbstractOperation()/
+- canvas
+- view
+- scatter
 --
-Responsibilities
--- Resp1
-*-- Resp2*</panel_attributes>
++ start()
++ update()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1820</x>
-      <y>462</y>
+      <x>1806</x>
+      <y>476</y>
       <w>294</w>
       <h>266</h>
     </coordinates>
     <panel_attributes>Config
 --
-#Operation(i: int): int
-/+AbstractOperation()/
+# Attribute wie Partivćle typen und allem einstellbaren
 --
-Responsibilities
--- Resp1
-*-- Resp2*</panel_attributes>
+# Methoden zum life einstellen</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1288</x>
+      <x>1274</x>
       <y>1064</y>
       <w>168</w>
       <h>154</h>
@@ -71,7 +70,7 @@ Responsibilities
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>756</x>
+      <x>742</x>
       <y>1008</y>
       <w>168</w>
       <h>154</h>
@@ -82,7 +81,7 @@ Responsibilities
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1022</x>
+      <x>1008</x>
       <y>1050</y>
       <w>168</w>
       <h>154</h>
@@ -93,7 +92,7 @@ Responsibilities
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1484</x>
+      <x>1470</x>
       <y>1064</y>
       <w>280</w>
       <h>210</h>
@@ -104,25 +103,28 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1120</x>
-      <y>462</y>
-      <w>322</w>
+      <x>952</x>
+      <y>476</y>
+      <w>434</w>
       <h>266</h>
     </coordinates>
-    <panel_attributes>Enviormoment
+    <panel_attributes>Environment
 --
 - interactionmatrix: np.ndarray
+- velocity: np.ndarray
 --
 + check_interactions() -&gt; [1,-1, 0] (ein array aus diesesn Zahlen werten) #push, pull, nothing, hier kommt r-NN
 + calc_force() # anstatt pull und push, werden mit dem return aus check_interactions multiplizieren um pull und push zu erzeugen (aber die null macht noch probleme)
-+ calc_friction() -&gt; int|float #die reibung ist von der umgebung abhängig, auf erden und im all unterschiedlich 
-</panel_attributes>
++ calc_friction() -&gt; int|float #die reibung ist von der umgebung abhängig, auf erden und im all unterschiedlich
++ calc_velocity() 
++ calc_velocity() #so wie ein Mensch,soll sich ein Partikel von selbst bewgenf benutzt calc_friction (oder die methode calc_force) der classe Enviormoment auf mit den parametern (type, velocity, radius, particles) oder doch import?
++ diffuse()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1792</x>
+      <x>1778</x>
       <y>952</y>
       <w>322</w>
       <h>266</h>
