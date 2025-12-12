@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="EB9C9A25E90F27D7">
-  <PROJECT FORMAT="1.00" NAME="Particle_Life_Simulator" AUTHOR="Michael" CREATED="2025.12.10 16:55:46" MODIFIED="2025.12.11 22:57:19">
+<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="97F857F0662C99E5">
+  <PROJECT FORMAT="1.00" NAME="Particle_Life_Simulator" AUTHOR="Michael" CREATED="2025.12.10 16:55:46" MODIFIED="2025.12.12 11:22:17">
     <DIAGRAMS>
       <DIAGRAM FORMAT="1.00" ID="0" NAME="main" CREATED="2025.12.10 16:56:30" MODIFIED="2025.12.10 19:17:28">
         <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="4">
@@ -134,8 +134,8 @@
           <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="2" TEXT="" />
         </CONNECTIONS>
       </DIAGRAM>
-      <DIAGRAM FORMAT="1.00" ID="4" NAME="Enviormoment.calc_force()" CREATED="2025.12.10 21:11:32" MODIFIED="2025.12.11 22:57:19">
-        <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="4">
+      <DIAGRAM FORMAT="1.00" ID="4" NAME="Enviormoment.calc_force()" CREATED="2025.12.10 21:11:32" MODIFIED="2025.12.12 11:22:17">
+        <LAYOUT FORMAT="1.00" COLUMNS="2" ROWS="11">
           <ENTRIES>
             <ENTRY COLUMN="0" ROW="0" ANCHOR="True">
               <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
@@ -148,20 +148,74 @@
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="0" ROW="2">
-              <FIGURE SUBTYPE="PapModule" FORMAT="1.00" ID="4">
-                <TEXT><![CDATA[Environment.check_interaction()]]></TEXT>
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="6">
+                <TEXT><![CDATA[Zählervariable mit Startwert definieren, Standardwert (i = 0)]]></TEXT>
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="0" ROW="3">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="8">
+                <TEXT><![CDATA[Schrittweite festlegen, Standartschrittweite (i+=1)]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="4">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="10">
+                <TEXT><![CDATA[zielwert festlegen, i < Array.shape[0]]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="5">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="12">
+                <TEXT><![CDATA[Gibt es noch zu ueberpruefende Punkte?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="6">
+              <FIGURE SUBTYPE="PapModule" FORMAT="1.00" ID="4">
+                <TEXT><![CDATA[Environment.check_interaction(Array[i])]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="7">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="20">
+                <TEXT><![CDATA[Rueckgabe wert der voher aufgerufenden Methode in Variable neighbours speichern]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="8">
+              <FIGURE SUBTYPE="PapModule" FORMAT="1.00" ID="31">
+                <TEXT><![CDATA[Environment.calc_velocity()]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="9">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="24">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="10">
               <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
                 <TEXT><![CDATA[Ende]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="5">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="14">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="9">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="22">
+                <TEXT><![CDATA[]]></TEXT>
               </FIGURE>
             </ENTRY>
           </ENTRIES>
         </LAYOUT>
         <CONNECTIONS>
-          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="4" TEXT="" />
-          <CONNECTION FORMAT="1.00" ID="5" FROM="4" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="6" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="21" FROM="4" TO="20" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="7" FROM="6" TO="8" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="9" FROM="8" TO="10" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="11" FROM="10" TO="12" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="13" FROM="12" TO="4" TEXT="ja" />
+          <CONNECTION FORMAT="1.00" ID="15" FROM="12" TO="14" TEXT="nein" />
+          <CONNECTION FORMAT="1.00" ID="17" FROM="14" TO="22" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="25" FROM="22" TO="24" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="30" FROM="24" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="32" FROM="20" TO="31" TEXT="" />
         </CONNECTIONS>
       </DIAGRAM>
       <DIAGRAM FORMAT="1.00" ID="5" NAME="Environment.calc_friction()" CREATED="2025.12.10 21:12:32" MODIFIED="2025.12.11 22:17:19">

@@ -57,50 +57,6 @@
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>1274</x>
-      <y>1064</y>
-      <w>168</w>
-      <h>154</h>
-    </coordinates>
-    <panel_attributes>Simulation</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>742</x>
-      <y>1008</y>
-      <w>168</w>
-      <h>154</h>
-    </coordinates>
-    <panel_attributes>Particle</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>1008</x>
-      <y>1050</y>
-      <w>168</w>
-      <h>154</h>
-    </coordinates>
-    <panel_attributes>Kräfte</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>1470</x>
-      <y>1064</y>
-      <w>280</w>
-      <h>210</h>
-    </coordinates>
-    <panel_attributes>config</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
       <x>952</x>
@@ -122,14 +78,15 @@
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLUseCase</id>
+    <id>UMLNote</id>
     <coordinates>
-      <x>1778</x>
-      <y>952</y>
-      <w>322</w>
-      <h>266</h>
+      <x>1120</x>
+      <y>938</y>
+      <w>658</w>
+      <h>294</h>
     </coordinates>
-    <panel_attributes>Knn (r-NN)</panel_attributes>
+    <panel_attributes>Formel fuer die Geschwindigkeit mit Abhängigkeit des Radius:
+bg=white</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
