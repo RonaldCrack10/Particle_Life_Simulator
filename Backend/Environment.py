@@ -1,0 +1,4 @@
+'''
+-- Interaction matrix: np.ndarray
+
+'''
