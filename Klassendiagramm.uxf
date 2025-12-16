@@ -40,7 +40,7 @@
       <w>378</w>
       <h>342</h>
     </coordinates>
-    <panel_attributes>Simulation
+    <panel_attributes>Visualize
 --
 - canvas
 - view
@@ -73,9 +73,10 @@
       <w>558</w>
       <h>342</h>
     </coordinates>
-    <panel_attributes>Environment
+    <panel_attributes>Simulation
 --
 - interactionmatrix: np.ndarray
+- checked_particles: np.ndarray
 --
 + check_interactions() -&gt; [1,-1, 0] (ein array aus diesesn Zahlen werten) #push, pull, nothing, hier kommt r-NN
 + calc_force() # anstatt pull und push, werden mit dem return aus check_interactions multiplizieren um pull und push zu erzeugen (aber die null macht noch probleme)

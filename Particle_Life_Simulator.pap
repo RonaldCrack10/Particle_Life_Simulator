@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="D0E60B7F9B854464">
-  <PROJECT FORMAT="1.00" NAME="Particle_Life_Simulator" AUTHOR="Michael" CREATED="2025.12.10 16:55:46" MODIFIED="2025.12.15 23:52:47">
+<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="CBF81112B531F6C2">
+  <PROJECT FORMAT="1.00" NAME="Particle_Life_Simulator" AUTHOR="Michael" CREATED="2025.12.10 16:55:46" MODIFIED="2025.12.16 19:32:21">
     <DIAGRAMS>
       <DIAGRAM FORMAT="1.00" ID="0" NAME="main" CREATED="2025.12.10 16:56:30" MODIFIED="2025.12.10 19:17:28">
         <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="4">
@@ -110,8 +110,8 @@
           <CONNECTION FORMAT="1.00" ID="11" FROM="10" TO="2" TEXT="" />
         </CONNECTIONS>
       </DIAGRAM>
-      <DIAGRAM FORMAT="1.00" ID="3" NAME="Environment.check_interaction()" CREATED="2025.12.10 21:10:45" MODIFIED="2025.12.15 23:52:47">
-        <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="11">
+      <DIAGRAM FORMAT="1.00" ID="3" NAME="Environment.check_interaction()" CREATED="2025.12.10 21:10:45" MODIFIED="2025.12.16 19:32:21">
+        <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="13">
           <ENTRIES>
             <ENTRY COLUMN="0" ROW="0" ANCHOR="True">
               <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
@@ -159,11 +159,21 @@
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="0" ROW="9">
-              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="18">
-                <TEXT><![CDATA[return neighbours_x, neigbours_y]]></TEXT>
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="24">
+                <TEXT><![CDATA[n_types: np.ndarray = Particles.type[maske_n]]]></TEXT>
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="0" ROW="10">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="26">
+                <TEXT><![CDATA[interactions = np.array([Particles.types[index, x] for x in n_types])]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="11">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="18">
+                <TEXT><![CDATA[return np.array([neighbours_x, neigbours_y, interactions])]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="12">
               <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
                 <TEXT><![CDATA[Ende]]></TEXT>
               </FIGURE>
@@ -178,8 +188,10 @@
           <CONNECTION FORMAT="1.00" ID="11" FROM="10" TO="12" TEXT="" />
           <CONNECTION FORMAT="1.00" ID="13" FROM="12" TO="14" TEXT="" />
           <CONNECTION FORMAT="1.00" ID="15" FROM="14" TO="16" TEXT="" />
-          <CONNECTION FORMAT="1.00" ID="17" FROM="16" TO="18" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="27" FROM="26" TO="18" TEXT="" />
           <CONNECTION FORMAT="1.00" ID="19" FROM="18" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="17" FROM="16" TO="24" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="25" FROM="24" TO="26" TEXT="" />
         </CONNECTIONS>
       </DIAGRAM>
       <DIAGRAM FORMAT="1.00" ID="4" NAME="Enviormoment.calc_force()" CREATED="2025.12.10 21:11:32" MODIFIED="2025.12.15 23:52:47">
