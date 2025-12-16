@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="5E1CA189CAC13A6D">
-  <PROJECT FORMAT="1.00" NAME="Particle_Life_Simulator" AUTHOR="Michael" CREATED="2025.12.10 16:55:46" MODIFIED="2025.12.12 19:30:35">
+<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="CBF81112B531F6C2">
+  <PROJECT FORMAT="1.00" NAME="Particle_Life_Simulator" AUTHOR="Michael" CREATED="2025.12.10 16:55:46" MODIFIED="2025.12.16 19:32:21">
     <DIAGRAMS>
       <DIAGRAM FORMAT="1.00" ID="0" NAME="main" CREATED="2025.12.10 16:56:30" MODIFIED="2025.12.10 19:17:28">
         <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="4">
@@ -110,8 +110,8 @@
           <CONNECTION FORMAT="1.00" ID="11" FROM="10" TO="2" TEXT="" />
         </CONNECTIONS>
       </DIAGRAM>
-      <DIAGRAM FORMAT="1.00" ID="3" NAME="Environment.check_interaction()" CREATED="2025.12.10 21:10:45" MODIFIED="2025.12.11 22:17:19">
-        <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="3">
+      <DIAGRAM FORMAT="1.00" ID="3" NAME="Environment.check_interaction()" CREATED="2025.12.10 21:10:45" MODIFIED="2025.12.16 19:32:21">
+        <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="13">
           <ENTRIES>
             <ENTRY COLUMN="0" ROW="0" ANCHOR="True">
               <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
@@ -124,6 +124,56 @@
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="0" ROW="2">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="4">
+                <TEXT><![CDATA[Parameter welche an die Funktion uebergeben werden: position_x: np.ndarray, position_y: np.ndarray, radius: np.ndarray, type: np.ndarray, index: int]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="3">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="6">
+                <TEXT><![CDATA[maske_x = Particles.x >= postion_x & Particles.x <= positon_x + radius]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="4">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="8">
+                <TEXT><![CDATA[maske_y = Particles.y >= position_y & Paritcles.y <= position.y +radius]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="5">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="10">
+                <TEXT><![CDATA[maske_n = maske_x & maske_y]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="6">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="12">
+                <TEXT><![CDATA[maske_n[index] = False]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="7">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="14">
+                <TEXT><![CDATA[neighbours_x = Patricles.x[maske_n]]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="8">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="16">
+                <TEXT><![CDATA[neighbours_y = Particles.y[maske_n]]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="9">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="24">
+                <TEXT><![CDATA[n_types: np.ndarray = Particles.type[maske_n]]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="10">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="26">
+                <TEXT><![CDATA[interactions = np.array([Particles.types[index, x] for x in n_types])]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="11">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="18">
+                <TEXT><![CDATA[return np.array([neighbours_x, neigbours_y, interactions])]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="12">
               <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
                 <TEXT><![CDATA[Ende]]></TEXT>
               </FIGURE>
@@ -131,10 +181,20 @@
           </ENTRIES>
         </LAYOUT>
         <CONNECTIONS>
-          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="4" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="5" FROM="4" TO="6" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="7" FROM="6" TO="8" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="9" FROM="8" TO="10" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="11" FROM="10" TO="12" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="13" FROM="12" TO="14" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="15" FROM="14" TO="16" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="27" FROM="26" TO="18" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="19" FROM="18" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="17" FROM="16" TO="24" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="25" FROM="24" TO="26" TEXT="" />
         </CONNECTIONS>
       </DIAGRAM>
-      <DIAGRAM FORMAT="1.00" ID="4" NAME="Enviormoment.calc_force()" CREATED="2025.12.10 21:11:32" MODIFIED="2025.12.12 19:30:35">
+      <DIAGRAM FORMAT="1.00" ID="4" NAME="Enviormoment.calc_force()" CREATED="2025.12.10 21:11:32" MODIFIED="2025.12.15 23:52:47">
         <LAYOUT FORMAT="1.00" COLUMNS="3" ROWS="14">
           <ENTRIES>
             <ENTRY COLUMN="0" ROW="5">
@@ -179,12 +239,12 @@
             </ENTRY>
             <ENTRY COLUMN="1" ROW="6">
               <FIGURE SUBTYPE="PapModule" FORMAT="1.00" ID="4">
-                <TEXT><![CDATA[Environment.check_interaction(Array[i])]]></TEXT>
+                <TEXT><![CDATA[Environment.check_interaction()]]></TEXT>
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="1" ROW="7">
               <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="20">
-                <TEXT><![CDATA[Rueckgabe wert der voher aufgerufenden Methode in Variable neighbours speichern]]></TEXT>
+                <TEXT><![CDATA[Rueckgabe wert der voher aufgerufenden Methode in Variablen neighbours_x und neigbours_y speichern]]></TEXT>
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="1" ROW="8">
@@ -273,8 +333,8 @@
           <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="2" TEXT="" />
         </CONNECTIONS>
       </DIAGRAM>
-      <DIAGRAM FORMAT="1.00" ID="7" NAME="Environment.calc_velocity()" CREATED="2025.12.10 21:18:04" MODIFIED="2025.12.11 22:17:19">
-        <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="3">
+      <DIAGRAM FORMAT="1.00" ID="7" NAME="Environment.calc_velocity()" CREATED="2025.12.10 21:18:04" MODIFIED="2025.12.15 23:52:47">
+        <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="14">
           <ENTRIES>
             <ENTRY COLUMN="0" ROW="0" ANCHOR="True">
               <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
@@ -287,6 +347,61 @@
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="0" ROW="2">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="4">
+                <TEXT><![CDATA[Folgende Parameter werden and die Methode weitergegeben: position_x: np.ndarray, position_y: np.ndarray, neighbours_x: np.ndarray, neighbours_y: np.ndarray]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="3">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="18">
+                <TEXT><![CDATA[r1 = np.array([position_x, poition_y])]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="4">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="26">
+                <TEXT><![CDATA[k = 8,99 * 1]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="5">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="7">
+                <TEXT><![CDATA[Zählervariable mit Startwert definieren, Standardwert (i = 0)]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="6">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="8">
+                <TEXT><![CDATA[Schrittweite festlegen, Standartschrittweite (i+=1)]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="7">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="9">
+                <TEXT><![CDATA[zielwert festlegen, i < Array.shape[0]]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="8">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="10">
+                <TEXT><![CDATA[Ist i kleiner neighbours_x.shape[0] ?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="9">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="16">
+                <TEXT><![CDATA[r2 = np.array([neighbours_x, neighbours_y ])]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="10">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="20">
+                <TEXT><![CDATA[r = r1 - r2 (verbindungsvektor berechnen)]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="11">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="22">
+                <TEXT><![CDATA[r_abs =np.sqrt ((r1[0] - r2[0])**2 + (r1[1] - r2[1])**2)]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="12">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="24">
+                <TEXT><![CDATA[r_direction = r / r_abs]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="13">
               <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
                 <TEXT><![CDATA[Ende]]></TEXT>
               </FIGURE>
@@ -294,7 +409,18 @@
           </ENTRIES>
         </LAYOUT>
         <CONNECTIONS>
-          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="4" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="5" FROM="4" TO="18" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="11" FROM="7" TO="8" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="12" FROM="8" TO="9" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="13" FROM="9" TO="10" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="17" FROM="16" TO="20" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="15" FROM="10" TO="16" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="19" FROM="18" TO="26" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="21" FROM="20" TO="22" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="23" FROM="22" TO="24" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="25" FROM="24" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="27" FROM="26" TO="7" TEXT="" />
         </CONNECTIONS>
       </DIAGRAM>
       <DIAGRAM FORMAT="1.00" ID="8" NAME="Environment.diffuse()" CREATED="2025.12.11 22:14:42" MODIFIED="2025.12.11 22:56:11">

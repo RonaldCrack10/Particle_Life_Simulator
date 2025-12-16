@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-  <zoom_level>14</zoom_level>
+  <zoom_level>18</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>490</x>
-      <y>462</y>
-      <w>420</w>
-      <h>420</h>
+      <x>378</x>
+      <y>558</y>
+      <w>540</w>
+      <h>594</h>
     </coordinates>
     <panel_attributes>Particles
 --
 - x: np.ndarray
 - y: np.ndarray
-- radius_x: np.ndarray 
-- radius_y: np.ndarray
+- radius: np.ndarray
+- velocity_x: np.ndarray
+- velocity_y: np.ndarray
 #particles sollte doch lieber mit nur x,y und typ sein. vielleicht wird typ auch ein eigenes Array
 - type: np.ndarray
 --
@@ -22,24 +23,24 @@
 + get_y()
 + set_x()
 + set_y()
-+ get_radius_x
-+ get_radius_y
++ get_radius
 + set_radius_x
 + set_radius_y
 + get_type
 + set_type
-</panel_attributes>
++ get_velocity_x
++ get_velocity_y</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1456</x>
-      <y>476</y>
-      <w>294</w>
-      <h>266</h>
+      <x>1764</x>
+      <y>558</y>
+      <w>378</w>
+      <h>342</h>
     </coordinates>
-    <panel_attributes>Simulation
+    <panel_attributes>Visualize
 --
 - canvas
 - view
@@ -52,10 +53,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1806</x>
-      <y>476</y>
-      <w>294</w>
-      <h>266</h>
+      <x>2214</x>
+      <y>558</y>
+      <w>378</w>
+      <h>342</h>
     </coordinates>
     <panel_attributes>Config
 --
@@ -67,16 +68,15 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>952</x>
-      <y>476</y>
-      <w>434</w>
-      <h>266</h>
+      <x>1098</x>
+      <y>558</y>
+      <w>558</w>
+      <h>342</h>
     </coordinates>
-    <panel_attributes>Environment
+    <panel_attributes>Simulation
 --
 - interactionmatrix: np.ndarray
-- velocity_x: np.ndarray
-- velocity_y: np.ndarray
+- checked_particles: np.ndarray
 --
 + check_interactions() -&gt; [1,-1, 0] (ein array aus diesesn Zahlen werten) #push, pull, nothing, hier kommt r-NN
 + calc_force() # anstatt pull und push, werden mit dem return aus check_interactions multiplizieren um pull und push zu erzeugen (aber die null macht noch probleme)
@@ -88,14 +88,70 @@
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1120</x>
-      <y>938</y>
-      <w>658</w>
-      <h>294</h>
+      <x>1386</x>
+      <y>1638</y>
+      <w>846</w>
+      <h>378</h>
     </coordinates>
-    <panel_attributes>Formel fuer Lorenkraft:
+    <panel_attributes>Formel fuer Lorentzkraft:
 
 bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>2970</x>
+      <y>1494</y>
+      <w>54</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>*Use case 3*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>2736</x>
+      <y>1494</y>
+      <w>54</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Use case 1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>2970</x>
+      <y>1296</y>
+      <w>54</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>*Use case 3*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2034</x>
+      <y>1080</y>
+      <w>378</w>
+      <h>342</h>
+    </coordinates>
+    <panel_attributes>typen
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1926</x>
+      <y>1080</y>
+      <w>108</w>
+      <h>342</h>
+    </coordinates>
+    <panel_attributes>typen</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
