@@ -23,13 +23,13 @@
 + get_y()
 + set_x()
 + set_y()
-+ get_radius_x
-+ get_radius_y
++ get_radius
 + set_radius_x
 + set_radius_y
 + get_type
 + set_type
-</panel_attributes>
++ get_velocity_x
++ get_velocity_y</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
