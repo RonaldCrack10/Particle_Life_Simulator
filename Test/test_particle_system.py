@@ -1,17 +1,26 @@
 from Backend.Environment import calc_friction
+from Backend.particle_system import Particles
 import numpy as np
 from Backend.Environment import Environment
 from Config.config import FRICTION
 
-def test_calc_friction():
+def test_particle_funtion():
+    particles = Particles()
     env = Environment()
-    velocity_x = np.array([1.0, -2.0, 0.0])
-    velocity_y = np.array([0.5, -1.5, 0.0])
-    
-    friction_x, friction_y = env.calc_friction(velocity_x, velocity_y)
-    
-    expected_friction_x = -FRICTION * velocity_x
-    expected_friction_y = -FRICTION * velocity_y
-    
-    assert (friction_x == expected_friction_x).all(), "Friction X calculation is incorrect"
-    assert (friction_y == expected_friction_y).all(), "Friction Y calculation is incorrect"
+
+    # Teste, ob die Partikel innerhalb der Fenstergrenzen liegen
+    assert np.all(particles.x >= 0) and np.all(particles.x <= env.width)
+    assert np.all(particles.y >= 0) and np.all(particles.y <= env.height)
+
+    # Teste, ob die Anfangsgeschwindigkeiten 0 sind
+    assert np.all(particles.velocity_x == 0)
+    assert np.all(particles.velocity_y == 0)
+
+    # Teste, ob die Partikeltypen im gültigen Bereich liegen
+    assert np.all(particles.types >= 0) and np.all(particles.types < env.num_types)
+
+    # Teste die Reibungsberechnung
+    test_velocity = 10.0
+    expected_friction = test_velocity * FRICTION
+    calculated_friction = calc_friction(test_velocity)
+    assert np.isclose(expected_friction, calculated_friction)
