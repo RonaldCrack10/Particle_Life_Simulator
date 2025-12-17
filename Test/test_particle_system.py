@@ -1,26 +1,40 @@
-from Backend.Environment import calc_friction
+
 from Backend.particle_system import Particles
 import numpy as np
 from Backend.Environment import Environment
 from Config.config import FRICTION
 
-def test_particle_funtion():
+import numpy as np
+from Backend.particle_system import Particles
+from Backend.Environment import Environment
+
+from Config.config import FRICTION, WIDTH, HEIGHT, NUM_TYPES
+
+def test_particle_system():
     particles = Particles()
     env = Environment()
 
-    # Teste, ob die Partikel innerhalb der Fenstergrenzen liegen
-    assert np.all(particles.x >= 0) and np.all(particles.x <= env.width)
-    assert np.all(particles.y >= 0) and np.all(particles.y <= env.height)
+    # 1. Teste Fenstergrenzen (Nutze die globalen WIDTH/HEIGHT, 
+    # da die Environment diese intern verwendet)
+    assert np.all(particles.x >= 0) and np.all(particles.x <= WIDTH)
+    assert np.all(particles.y >= 0) and np.all(particles.y <= HEIGHT)
 
-    # Teste, ob die Anfangsgeschwindigkeiten 0 sind
+    # 2. Teste Anfangsgeschwindigkeiten
     assert np.all(particles.velocity_x == 0)
     assert np.all(particles.velocity_y == 0)
 
-    # Teste, ob die Partikeltypen im gültigen Bereich liegen
-    assert np.all(particles.types >= 0) and np.all(particles.types < env.num_types)
+    # 3. Teste Partikeltypen (NUM_TYPES statt env.num_types)
+    assert np.all(particles.types >= 0) and np.all(particles.types < NUM_TYPES)
 
-    # Teste die Reibungsberechnung
-    test_velocity = 10.0
-    expected_friction = test_velocity * FRICTION
-    calculated_friction = calc_friction(test_velocity)
-    assert np.isclose(expected_friction, calculated_friction)
+    # 4. Teste die Reibungsberechnung
+    # In deinem Code oben war calc_friction: velocity * FRICTION
+    test_vel_x = np.array([10.0, -5.0])
+    test_vel_y = np.array([0.0, 8.0])
+    
+    # Deine Environment.calc_friction gibt (vx, vy) zurück
+    calc_v_x, calc_v_y = env.calc_friction(test_vel_x, test_vel_y)
+    
+    # WICHTIG: In deinem Code oben ist calc_friction = -FRICTION * velocity
+    # Prüfe, ob die Richtung stimmt (Dämpfung)
+    expected_x = -FRICTION * test_vel_x
+    assert np.allclose(calc_v_x, expected_x)
