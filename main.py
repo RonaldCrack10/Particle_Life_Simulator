@@ -9,9 +9,17 @@ Integriert habe ich:
 - Ergänzungen (calc_friction, calc_force)
 - damit Partikel sich nicht überlagern fixes2 und 3 etc. s.u.
 """
-
+from Config.config import DT
 import numpy as np
 from typing import Tuple, Optional
+from PyQt6.QtWidgets import (
+    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
+    QPushButton, QLabel, QSlider, QSpinBox, QDoubleSpinBox,
+    QGroupBox, QGridLayout, QTabWidget, QMessageBox
+)
+from PyQt6.QtCore import QTimer, Qt
+from PyQt6.QtGui import QPainter, QColor, QPen
+import sys
 
 # ==================== CONFIG  ====================
 # Fenstergröße
@@ -317,6 +325,166 @@ def main():
     print("Simulation funktioniert")
     print("=" * 60)
 
+class ParticleCanvas(QWidget):
+    def __init__(self, environment):
+        super().__init__()
+        self.environment = environment
+        self.setMinimumSize(WIDTH, HEIGHT)
+        self.setMaximumSize(WIDTH, HEIGHT)
+        
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(0, 0, WIDTH, HEIGHT, QColor(10, 10, 10))
+        
+        particles = self.environment._particles
+        
+        for i in range(len(particles.x)):
+            color = COLORS[COLOR_LIST[particles.types[i]]]
+            painter.setBrush(QColor(*color))
+            painter.setPen(Qt.PenStyle.NoPen)
+            
+            x = int(particles.x[i])
+            y = int(particles.y[i])
+            r = self.environment.config['particle_radius']
+            
+            painter.drawEllipse(x - r, y - r, 2 * r, 2 * r)
 
+
+# ==================== MAIN WINDOW ====================
+class ParticleCanvas(QWidget):
+    def __init__(self, environment):
+        super().__init__()
+        self.environment = environment
+        self.setMinimumSize(WIDTH, HEIGHT)
+        self.setMaximumSize(WIDTH, HEIGHT)
+        
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(0, 0, WIDTH, HEIGHT, QColor(10, 10, 10))
+        
+        particles = self.environment._particles
+        
+        for i in range(len(particles.x)):
+            color = COLORS[COLOR_LIST[particles.types[i]]]
+            painter.setBrush(QColor(*color))
+            painter.setPen(Qt.PenStyle.NoPen)
+            
+            x = int(particles.x[i])
+            y = int(particles.y[i])
+            r = self.environment.config['particle_radius']
+            
+            painter.drawEllipse(x - r, y - r, 2 * r, 2 * r)
+
+
+# ==================== MAIN WINDOW ====================
+class ParticleCanvas(QWidget):
+    def __init__(self, environment):
+        super().__init__()
+        self.environment = environment
+        self.setMinimumSize(WIDTH, HEIGHT)
+        
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(self.rect(), QColor(10, 10, 15))
+        
+        particles = self.environment._particles
+        for i in range(len(particles.x)):
+            color = COLORS[COLOR_LIST[particles.types[i]]]
+            painter.setBrush(QColor(*color))
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.drawEllipse(int(particles.x[i]-PARTICLE_RADIUS), 
+                                int(particles.y[i]-PARTICLE_RADIUS), 
+                                2*PARTICLE_RADIUS, 2*PARTICLE_RADIUS)
+
+class ParticleLifeWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Particle Life - Milestone 2")
+        self.environment = Environment()
+        self.is_running = False
+        self.frame_count = 0
+        
+        self.timer = QTimer(); self.timer.timeout.connect(self.update_sim)
+        self.fps_timer = QTimer(); self.fps_timer.timeout.connect(self.update_fps)
+        self.fps_timer.start(1000)
+        
+        self.init_ui()
+        
+    def init_ui(self):
+        central = QWidget(); self.setCentralWidget(central)
+        layout = QHBoxLayout(central)
+        
+        # Simulation View
+        sim_layout = QVBoxLayout()
+        self.canvas = ParticleCanvas(self.environment)
+        sim_layout.addWidget(self.canvas)
+        
+        btn_layout = QHBoxLayout()
+        self.start_btn = QPushButton("Start")
+        self.start_btn.clicked.connect(self.toggle)
+        btn_layout.addWidget(self.start_btn)
+        
+        reset_btn = QPushButton("Reset")
+        reset_btn.clicked.connect(self.reset)
+        btn_layout.addWidget(reset_btn)
+        sim_layout.addLayout(btn_layout)
+        
+        self.fps_label = QLabel(f"FPS: 0 | Partikel: {NUM_PARTICLES}")
+        sim_layout.addWidget(self.fps_label)
+        layout.addLayout(sim_layout)
+        
+        # Settings Tab
+        tabs = QTabWidget(); tabs.setFixedWidth(300)
+        matrix_page = QWidget(); m_layout = QVBoxLayout(matrix_page)
+        
+        grid = QGridLayout()
+        self.spins = []
+        for i in range(NUM_TYPES):
+            row = []
+            for j in range(NUM_TYPES):
+                s = QDoubleSpinBox()
+                s.setRange(-2.0, 2.0); s.setSingleStep(0.1)
+                s.setValue(self.environment._interactionmatrix[i,j])
+                grid.addWidget(s, i, j); row.append(s)
+            self.spins.append(row)
+        
+        m_layout.addLayout(grid)
+        apply_btn = QPushButton("Matrix anwenden")
+        apply_btn.clicked.connect(self.apply_m)
+        m_layout.addWidget(apply_btn)
+        m_layout.addStretch()
+        
+        tabs.addTab(matrix_page, "Matrix")
+        layout.addWidget(tabs)
+
+    def toggle(self):
+        self.is_running = not self.is_running
+        self.start_btn.setText("Pause" if self.is_running else "Start")
+        if self.is_running: self.timer.start(10)
+        else: self.timer.stop()
+
+    def update_sim(self):
+        self.environment.step()
+        self.canvas.update()
+        self.frame_count += 1
+
+    def update_fps(self):
+        self.fps_label.setText(f"FPS: {self.frame_count} | Partikel: {NUM_PARTICLES}")
+        self.frame_count = 0
+
+    def apply_m(self):
+        for i in range(NUM_TYPES):
+            for j in range(NUM_TYPES):
+                self.environment._interactionmatrix[i,j] = self.spins[i][j].value()
+
+    def reset(self):
+        self.environment._particles = Particles()
+        self.canvas.update()
+
+# ==================== MAIN ====================
 if __name__ == "__main__":
-    main() 
+    app = QApplication(sys.argv)
+    app.setStyle('Fusion')
+    win = ParticleLifeWindow()
+    win.show()
+    sys.exit(app.exec())
