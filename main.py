@@ -113,6 +113,7 @@ class Environment:
       
         self._particles: Particles = Particles()
         
+        # TODO: _checked_particles wird deklariert, aber nie verwendet
         # Bugfix: .shape gibt es nicht, nutze NUM_PARTICLES
         self._checked_particles: np.ndarray = np.zeros(NUM_PARTICLES, dtype=bool)
 
@@ -159,6 +160,9 @@ class Environment:
         """
         Calculate friction forces for all particles.
         Note: friction is returned with a sign that *opposes* the velocity.
+        
+        HINWEIS: Diese Methode wird nicht mehr in step() verwendet.
+        Reibung wird jetzt als direkter Dämpfungsfaktor angewendet.
         """
         friction_x = -FRICTION * velocity_x
         friction_y = -FRICTION * velocity_y
@@ -198,6 +202,8 @@ class Environment:
         distances = np.sqrt(dx.astype(float)**2 + dy.astype(float)**2)
         
         # Epsilon gegen Division durch 0
+        # TODO: Bei sehr kleinen Distanzen können Kräfte trotz eps explodieren.
+        # Evtl. Mindestabstand oder Soft-Core-Potential implementieren.
         eps = 1e-12
         
         # Einheitsvektor (Richtung)
@@ -210,8 +216,9 @@ class Environment:
         force_magnitude = interactions / (distances + eps)
         
         # Summe aller Kräfte
-        fx = np.sum(force_magnitude * unit_x)
-        fy = np.sum(force_magnitude * unit_y)
+        # FIX 1: Negatives Vorzeichen, damit positive Interaktion = Abstoßung
+        fx = -np.sum(force_magnitude * unit_x)
+        fy = -np.sum(force_magnitude * unit_y)
         
         return fx, fy
 
@@ -230,15 +237,13 @@ class Environment:
             force_x[i] = fx
             force_y[i] = fy
         
-        # Reibung berechnen
-        friction_x, friction_y = self.calc_friction(
-            self._particles.velocity_x, 
-            self._particles.velocity_y
-        )
+        # Geschwindigkeit ändern (nur mit Kräften)
+        self._particles.velocity_x = self._particles.velocity_x + force_x * dt
+        self._particles.velocity_y = self._particles.velocity_y + force_y * dt
         
-        # Geschwindigkeit ändern
-        self._particles.velocity_x = self._particles.velocity_x + (force_x + friction_x) * dt
-        self._particles.velocity_y = self._particles.velocity_y + (force_y + friction_y) * dt
+        # FIX 2: Reibung als direkter Dämpfungsfaktor anwenden
+        self._particles.velocity_x *= FRICTION
+        self._particles.velocity_y *= FRICTION
         
         # Position ändern
         self._particles.x = self._particles.x + self._particles.velocity_x * dt
@@ -314,4 +319,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main() 
