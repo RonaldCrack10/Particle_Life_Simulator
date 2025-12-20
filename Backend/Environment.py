@@ -2,17 +2,17 @@ import numpy as np
 import numba
 from Particles.py import Particles
 from typing import Tuple, Optional
-from Config.config import FRICTION
+
 
 
 class Environment:
 
     def __init__(self):
-        self._interactionmatrix: np.ndarray = np.array([0, 1, 2, 3, 4],
+        self._interactionmatrix: np.ndarray = np.array([[0, 1, 2, 3, 4],
                                                        [1, 1, -1, -1, 1],
-                                                        [2, -1, 1, -1, 1],
+                                                       [2, -1, 1, -1, 1],
                                                        [3, -1, -1, 1, 1],
-                                                       [4, 1, 1, 1, -1])
+                                                       [4, 1, 1, 1, -1]])
         self._particles: Particles = Particles()
         self._checked_particles: np.ndarray= np.zeros(self._particles.shape)
 
@@ -51,6 +51,10 @@ class Environment:
 			r_norm: np.ndarray = r / r_abs
 			f1: np.ndarray = k * (np.prod(interactions)/r**2) * r_norm
 			f2: np.ndarray = f1 * -1
+
+            #mit Reibungskraft verechnen
+            f1 = f1 - gamma * 
+
 			a1: np.ndarray = f1 / m1
 			a2: np.ndarray = f2 / m2
 			self._particles.velocity_x[index] = self._particles.velocity_x[index] + a1[0] * t
@@ -64,22 +68,9 @@ class Environment:
 			self._particles.x[indices[i]] = self._particles.x[indices[i]] + self._particles.velocity_x[indices[i]]  * t
 			self._particles.y[indices[i]] = self._particles.y[indices[i]] + self._particles.velocity_x[indices[i]]  * t
 
-
-    def calc_friction(self, velocity_x: np.ndarray, velocity_y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Calculate friction forces for all particles.
-
-        Returns:
-            Tuple of numpy arrays representing friction forces in x and y directions.
-
-        Note: friction is returned with a sign that *opposes* the velocity.
-        i.e. friction_x = -FRICTION * velocity_x
-        """
-
-        friction_x = -FRICTION * velocity_x
-        friction_y = -FRICTION * velocity_y
-
-        return friction_x, friction_y
+    
+    def diffuse():
+        pass
 
 
     def calc_force(
