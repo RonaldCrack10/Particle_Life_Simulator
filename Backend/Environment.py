@@ -49,7 +49,7 @@ class Environment:
 			r = r1 - r2
 			r_abs = np.sqrt((r1[0] - r2[0])**2 + (r1[1] - r2[1])**2)
 			r_norm: np.ndarray = r / r_abs
-			f1: np.ndarray = k * (np.prod(interactions)/r**2) * r_norm
+			f1: np.ndarray = k * (np.prod(self._interactionmatrix[interactions])/r**2) * r_norm
 			f2: np.ndarray = f1 * -1
 
             #mit Reibungskraft verechnen
