@@ -77,12 +77,14 @@
 --
 - interactionmatrix: np.ndarray
 - checked_particles: np.ndarray
+- particles: Particles
 --
 + check_interactions() -&gt; [1,-1, 0] (ein array aus diesesn Zahlen werten) #push, pull, nothing, hier kommt r-NN
 + calc_force() # anstatt pull und push, werden mit dem return aus check_interactions multiplizieren um pull und push zu erzeugen (aber die null macht noch probleme)
 + calc_friction() -&gt; int|float #die reibung ist von der umgebung abhängig, auf erden und im all unterschiedlich
 + calc_velocity()
-+ diffuse()</panel_attributes>
++ diffuse()
++ get_particles()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
