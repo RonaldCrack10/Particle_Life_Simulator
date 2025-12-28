@@ -59,7 +59,7 @@ cd particle-life
    python main.py
 ```
 
-# start program
+## start program
 python -m particle_life
 ```
 
