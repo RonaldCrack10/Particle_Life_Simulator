@@ -1,8 +1,8 @@
 import numpy as np
 import numba
-from Particles.py import Particles
+from Particles import Particles
 from typing import Tuple, Optional
-from Config.py import *
+from Config.config import *
 
 class Environment:
 
@@ -13,13 +13,13 @@ class Environment:
                                                        [3, -1, -1, 1, 1],
                                                        [4, 1, 1, 1, -1]])
         self._particles: Particles = Particles()
-        self._checked_particles: np.ndarray= np.zeros(self._particles.shape)
+		self._checked_particles: np.ndarray= np.zeros(self._particles.shape)
 
 	@numba.jit(nopython = True)
-    def check_interactions(self, position_x, position_y, radius, index) -> np.ndarray:
+	def check_interactions(self, position_x, position_y, radius, index) -> np.ndarray:
 		#positionen aller Particles im Radius herausfinden
 		maske_x = self._particles.x >= position_x & self._particles.x <= position_x + radius
-		maske_y = self._particles.y >= position_y & self._paritcles.y <= position.y + radius
+		maske_y = self._particles.y >= position_y & self._particles.y <= position_y + radius
 		maske_n = maske_x & maske_y
 		maske_n[index] = False
 		if sum(maske_n) == 0:
@@ -31,13 +31,13 @@ class Environment:
 		n_types: np.ndarray = self._particles.type[maske_n]
 		interactions = np.array([self._particles.types[index, x] for x in n_types])
 		
-		indices = np.where(mask)
-		return np.array([neighbours_x, neigbours_y, interactions, indices])
+		indices = np.where(maske_n)
+		return np.array([neighbours_x, neighbours_y, interactions, indices])
 
 	@numba.jit(nopython = True)
 	def calc_velocity(self, position_x: np.ndarray, position_y: np.ndarray, neighbours_x: np.ndarray, neighbours_y: np.ndarray, interactions: np.ndarray, index: int, indices: np.ndarray ):
-		new_x: np.zeros(neighbours_x.shape[0])
-		new_y: np.zeros(neighbours_y.shape[0])
+		new_x: np.array = np.zeros(neighbours_x.shape[0])
+		new_y: np.array =  np.zeros(neighbours_y.shape[0])
 		r1: np.ndarray = np.array([position_x, position_y])
 		k: int = 1
 		m1: int = 1
@@ -52,8 +52,8 @@ class Environment:
 			f2: np.ndarray = f1 * -1
 
             #mit Reibungskraft verechnen
-            f1 = f1 - gamma * self._particles.velocity_x[indices[i]]
-            f2 = f2 - gamma * self._particles.velocity_y[indices[i]]
+            f1 = f1 - FRICTION * self._particles.velocity_x[indices[i]] # Reibungskraft gamma  = Friction
+            f2 = f2 - FRICTION * self._particles.velocity_y[indices[i]]
 
 			a1: np.ndarray = f1 / m1
 			a2: np.ndarray = f2 / m2
@@ -70,8 +70,23 @@ class Environment:
 
     
     def diffuse(self):
-        pass
-       
+	
+		# Startwerte für die Schleife
+		i = 0
+		# Für jedes Partikel die Nachbarn prüfen und Geschwindigkeit berechnen
+		for i in range(NUM_PARTICLES):
+			neighbours_x, neighbours_y, interactions, indices = self.check_interactions(self._particles.x[i], self._particles.y[i], PARTICLE_RADIUS, i)
+			i += 1
+			if indices.shape[0] > 0:
+				self.calc_velocity(self._particles.x[i], self._particles.y[i], neighbours_x, neighbours_y, interactions, i, indices)
+			else:
+				# No interactions, just update position
+
+				self._particles.x[i] += self._particles.velocity_x[i] 
+				self._particles.y[i] += self._particles.velocity_y[i] 
+
+			
+
 
     def get_particles_x(self):
         return self._particles.x 
