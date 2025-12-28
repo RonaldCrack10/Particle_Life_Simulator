@@ -33,8 +33,10 @@ from Config.config import (
     WIDTH, HEIGHT, NUM_PARTICLES, NUM_TYPES,
     FRICTION, INTERACTION_RADIUS, PARTICLE_RADIUS, INTERACTION_MATRIX
 )
-from Backend.particle_system import Particles
-from Backend.Environment import Environment
+from Backend.Simulation import Simulation
+sim = Simulation()
+sim.step()
+sim._particles.x
 
 
 # ============================================================================
