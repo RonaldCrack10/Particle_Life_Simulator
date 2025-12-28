@@ -1,7 +1,7 @@
-from Frontend.visualize import *
 """
-Particle Life Simulator-Start
+Particle Life Simulator - Startet die GUI
 
 Ausführen:
     python main.py
 """
+from Frontend.visualize import *
