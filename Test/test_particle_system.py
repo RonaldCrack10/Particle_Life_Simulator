@@ -34,7 +34,7 @@ from Config.config import (
     FRICTION, INTERACTION_RADIUS, PARTICLE_RADIUS, INTERACTION_MATRIX
 )
 from Backend.particle_system import Particles
-from Backend.Environment import Environment
+from Backend.Simulation import Simulation
 
 
 # ============================================================================
@@ -47,23 +47,23 @@ def run_timeit_tests():
     print("PERFORMANCE TESTS (timeit)")
     print("=" * 60)
 
-    env = Environment()
+    sim = Simulation()
 
-    time_step = timeit.timeit(lambda: env.step(), number=10)
+    time_step = timeit.timeit(lambda: sim.step(), number=10)
     print(f"\nstep() x10:                 {time_step:.4f}s  ({time_step/10*1000:.2f}ms pro step)")
 
-    px, py = env._particles.x[0], env._particles.y[0]
+    px, py = sim._particles.x[0], sim._particles.y[0]
     time_check = timeit.timeit(
-        lambda: env.check_interactions(px, py, INTERACTION_RADIUS, 0),
+        lambda: sim.check_interactions(px, py, INTERACTION_RADIUS, 0),
         number=1000
     )
     print(f"check_interactions() x1000: {time_check:.4f}s  ({time_check/1000*1000:.3f}ms pro Aufruf)")
 
-    time_force = timeit.timeit(lambda: env.calc_force(0), number=1000)
+    time_force = timeit.timeit(lambda: sim.calc_force(0), number=1000)
     print(f"calc_force() x1000:         {time_force:.4f}s  ({time_force/1000*1000:.3f}ms pro Aufruf)")
 
     time_friction = timeit.timeit(
-        lambda: env.calc_friction(env._particles.velocity_x, env._particles.velocity_y),
+        lambda: sim.calc_friction(sim._particles.velocity_x, sim._particles.velocity_y),
         number=10000
     )
     print(f"calc_friction() x10000:     {time_friction:.4f}s  ({time_friction/10000*1000:.4f}ms pro Aufruf)")
@@ -81,27 +81,27 @@ def run_scaling_test():
     ns = [50, 100, 200, 400]
 
     for n in ns:
-        env = Environment()
-        env._particles._x = np.random.rand(n) * WIDTH
-        env._particles._y = np.random.rand(n) * HEIGHT
-        env._particles._velocity_x = np.zeros(n)
-        env._particles._velocity_y = np.zeros(n)
-        env._particles._types = np.random.randint(0, NUM_TYPES, n)
+        sim = Simulation()
+        sim._particles._x = np.random.rand(n) * WIDTH
+        sim._particles._y = np.random.rand(n) * HEIGHT
+        sim._particles._velocity_x = np.zeros(n)
+        sim._particles._velocity_y = np.zeros(n)
+        sim._particles._types = np.random.randint(0, NUM_TYPES, n)
 
         def run_steps():
             for _ in range(5):
                 force_x = np.zeros(n)
                 force_y = np.zeros(n)
                 for i in range(n):
-                    fx, fy = env.calc_force(i)
+                    fx, fy = sim.calc_force(i)
                     force_x[i] = fx
                     force_y[i] = fy
-                env._particles.velocity_x = env._particles.velocity_x + force_x * 0.01
-                env._particles.velocity_y = env._particles.velocity_y + force_y * 0.01
-                env._particles.velocity_x *= FRICTION
-                env._particles.velocity_y *= FRICTION
-                env._particles.x = (env._particles.x + env._particles.velocity_x * 0.01) % WIDTH
-                env._particles.y = (env._particles.y + env._particles.velocity_y * 0.01) % HEIGHT
+                sim._particles.velocity_x = sim._particles.velocity_x + force_x * 0.01
+                sim._particles.velocity_y = sim._particles.velocity_y + force_y * 0.01
+                sim._particles.velocity_x *= FRICTION
+                sim._particles.velocity_y *= FRICTION
+                sim._particles.x = (sim._particles.x + sim._particles.velocity_x * 0.01) % WIDTH
+                sim._particles.y = (sim._particles.y + sim._particles.velocity_y * 0.01) % HEIGHT
 
         time_n = timeit.timeit(run_steps, number=1)
         times.append(time_n)
@@ -124,12 +124,12 @@ def run_cprofile(num_steps=20, top_n=20):
     print(f"CPROFILE ANALYSE ({num_steps} steps)")
     print("=" * 60)
 
-    env = Environment()
+    sim = Simulation()
 
     profiler = cProfile.Profile()
     profiler.enable()
     for _ in range(num_steps):
-        env.step()
+        sim.step()
     profiler.disable()
 
     stream = io.StringIO()
@@ -154,12 +154,12 @@ def run_cprofile_to_file(filename="profile_output.prof", num_steps=50):
     print(f"CPROFILE → {filename}")
     print("=" * 60)
 
-    env = Environment()
+    sim = Simulation()
 
     profiler = cProfile.Profile()
     profiler.enable()
     for _ in range(num_steps):
-        env.step()
+        sim.step()
     profiler.disable()
 
     profiler.dump_stats(filename)
@@ -189,12 +189,12 @@ def run_snakeviz(filename="profile_output.prof", num_steps=50):
     print("SNAKEVIZ VISUALISIERUNG")
     print("=" * 60)
 
-    env = Environment()
+    sim = Simulation()
 
     profiler = cProfile.Profile()
     profiler.enable()
     for _ in range(num_steps):
-        env.step()
+        sim.step()
     profiler.disable()
 
     profiler.dump_stats(filename)
@@ -231,3 +231,4 @@ if __name__ == "__main__":
 
     if args.snakeviz:
         run_snakeviz()
+        

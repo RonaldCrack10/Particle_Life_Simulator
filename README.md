@@ -42,11 +42,24 @@ Inspired by: [Particle Life WebGL Demo](https://particle-life.com/)
 git clone https://github.com/RonaldCrack10/Particle_Life_Simulator.git
 cd particle-life
 
-# optionally create virtual environment
+## Installation
 
-# install packages
+1. Conda Environment erstellen:
+```bash
+   conda env create -f pls_env.yml
+```
 
-# start program
+2. Environment aktivieren:
+```bash
+   conda activate pls_env
+```
+
+3. Starten:
+```bash
+   python main.py
+```
+
+## start program
 python -m particle_life
 ```
 
