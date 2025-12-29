@@ -1,7 +1,3 @@
-
-"""
-GUI - Einfachste VisPy Visualisierung
-"""
 import numpy as np
 from vispy import app, scene
 from Backend.Simulation import Simulation
