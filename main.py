@@ -6,4 +6,4 @@ Ausführen:
 """
 from Frontend.visualize import *
 
-start()
+app.run()
