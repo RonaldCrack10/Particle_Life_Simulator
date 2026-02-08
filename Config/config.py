@@ -8,8 +8,8 @@ Config - Parameter für Particle Life Simulator
 WIDTH, HEIGHT = 800, 800
 
 # Simulationsparameter
-NUM_PARTICLES = 100  # Für Test weniger (später: 5000)
-PARTICLE_RADIUS = 3
+NUM_PARTICLES = 2000  # Für Test weniger (später: 5000)
+PARTICLE_RADIUS = 5
 FRICTION = 0.95
 MAX_SPEED = 5
 INTERACTION_RADIUS = 100
