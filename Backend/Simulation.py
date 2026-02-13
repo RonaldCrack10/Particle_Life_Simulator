@@ -131,7 +131,7 @@ class Environment:
         self._particles.velocity_y *= FRICTION
 
        
-        t = 0.5 # Zeitschritt für die Bewegung 
+        t = 1 # Zeitschritt für die Bewegung 
         self._particles.x += self._particles.velocity_x * t
         self._particles.y += self._particles.velocity_y * t
 			
