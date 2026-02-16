@@ -12,8 +12,8 @@ env = Environment()
 
 canvas = scene.SceneCanvas(keys='interactive', show=True)
 view = canvas.central_widget.add_view()
-x_min, x_max = env.get_particles_x().min(), env.get_particles_x().max()
-y_min, y_max = env.get_particles_y().min(), env.get_particles_y().max()
+x_min, x_max = env._particles.x.min(), env._particles.x.max()
+y_min, y_max = env._particles.y.min(), env._particles.y.max()
 padding = 5  # Abstand zum Rand, damit Partikel nicht abgeschnitten werden
 view.camera = scene.cameras.PanZoomCamera(rect=(-60, -60, 120, 120))  
 view.camera.set_range(x=(-60,60), y=(-60,60))
