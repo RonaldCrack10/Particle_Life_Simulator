@@ -8,40 +8,50 @@ GUI - VisPy Visualisierung
 
 """
 class Visualize:
-    pass
 
-env = Environment()
+   
+    def __init__(self, simulation, particles):
+        self._simulation = simulation
+        self._particles = particles
 
-canvas = scene.SceneCanvas(keys='interactive', show=True)
-view = canvas.central_widget.add_view()
-x_min, x_max = env._particles.x.min(), env._particles.x.max()
-y_min, y_max = env._particles.y.min(), env._particles.y.max()
-padding = 5  # Abstand zum Rand, damit Partikel nicht abgeschnitten werden
-view.camera = scene.cameras.PanZoomCamera(rect=(-60, -60, 120, 120))  
-view.camera.set_range(x=(-60,60), y=(-60,60))
+        self._canvas = scene.SceneCanvas(keys="interactive", show=True)
+        self._view = self._canvas.central_widget.add_view()
+        self._view.camera = scene.cameras.PanZoomCamera(aspect=1)
 
-# Initial random positions for particles
-scatter = scene.visuals.Markers()
-initial_pos = np.column_stack((env.get_particles_x(), env.get_particles_y()))
+        self._scatter = scene.visuals.Markers(parent=self._view.scene)
 
-COLOR_MAP = {
-    0: COLORS_VISPY[0],  # RED
-    1: COLORS_VISPY[1],  # GREEN
-    2: COLORS_VISPY[2],  # BLUE
-    3: COLORS_VISPY[3],  # YELLOW
-}
-colors = np.array([COLOR_MAP[t] for t in env._particles.types])
-scatter.set_data(initial_pos, face_color=colors, size=10)
-view.add(scatter)
+        # initial plot
+        pos = np.c_[particles.x, particles.y]  # shape (N,2)
+        self._scatter.set_data(pos, face_color="yellow", size=6)
 
-def update(event):
+        # make sure points are in view
+        self._view.camera.set_range(x=(pos[:, 0].min(), pos[:, 0].max()),
+                                    y=(pos[:, 1].min(), pos[:, 1].max()))
+
+        # timer calls self.update
+        self._timer = app.Timer(interval=0.05, connect=self.update, start=True)
+
+    def update(self, event):
+        x, y = self._simulation.diffuse()
+        pos = np.c_[x, y]
+        self._scatter.set_data(pos, face_color="yellow", size=6)
+
+        # optional: keep camera updated if points move a lot
+        # self._view.camera.set_range(x=(pos[:,0].min(), pos[:,0].max()),
+        #                             y=(pos[:,1].min(), pos[:,1].max()))
+
+    def start(self):
+        app.run()
 
 
-    env.diffuse()
-    new_pos = np.array([env.get_particles_x(), env.get_particles_y()]).T
-    scatter.set_data(new_pos, face_color= colors, size=10)
- 
-timer = app.Timer(interval= 1/60, connect=update, start=True)
- 
+if __name__ == "__main__":
+    app.use_app("pyqt5")  # set backend BEFORE creating canvas
 
- 
+    # TODO: hier musst du deine echten Objekte einsetzen:
+    simulation = ...   # hat .diffuse() -> (x, y)
+    particles = ...    # hat .x und .y arrays
+
+    viz = Visualize(simulation, particles)
+    viz.start()
+
+
