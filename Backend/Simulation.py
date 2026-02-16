@@ -6,19 +6,22 @@ from Config.constants import *
 
 class Simulation:
 
-    def __init__(self):
-        self._interactionmatrix: np.ndarray = np.array([[0, 1, 2, 3, 4],
+    def __init__(self,
+        interactionmatrix: np.ndarray = np.array([[0, 1, 2, 3, 4],
                                                        [1, 1, -1, -1, 1],
                                                        [2, -1, 1, -1, 1],
                                                        [3, -1, -1, 1, 1],
-                                                       [4, 1, 1, 1, -1]])
-        self._particles: Particles = Particles()
-        particles = Particles()
+                                                       [4, 1, 1, 1, -1]]),
+        particles: Particles = None):
+        
+        self._interactionmatrix = interactionmatrix
+        self._particles = particles if particles is not None else Particles()
+        self._particles_x = self._particles.x
+        self._particles_y = self._particles.y
+        
         num = self._particles.x.shape[0]
-        self._checked_particles: np.ndarray= np.zeros(num, dtype = int)
-        self._particles = particles
-        self._particles_x = particles.x
-        self._particles_y = particles.y
+        self._checked_particles: np.ndarray = np.zeros(num, dtype=int)
+        
 
     
     
