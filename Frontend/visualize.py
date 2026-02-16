@@ -1,6 +1,6 @@
 import numpy as np
 from vispy import app, scene
-from Backend.Simulation import Environment
+from Backend.Simulation import Simulation
 from Config.constants import *
 
 """
