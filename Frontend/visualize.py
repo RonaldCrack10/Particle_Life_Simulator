@@ -7,6 +7,8 @@ from Config.config import *
 GUI - VisPy Visualisierung
 
 """
+class Visualize:
+    pass
 
 env = Environment()
 
