@@ -22,6 +22,8 @@ def config():
 # Fenstergröße
 WIDTH, HEIGHT = 800, 800
 
+NUM_TYPES = 5
+
 # Simulationsparameter
 NUM_PARTICLES = 2000  # Für Test weniger (später: 5000)
 
