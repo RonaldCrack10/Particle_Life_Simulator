@@ -3,17 +3,21 @@ from Config.constants import NUM_PARTICLES, NUM_TYPES, WIDTH, HEIGHT
 
 
 class Particles:
-    """Verwaltet alle Partikel als NumPy Arrays."""
-
-    def __init__(self, num_particles: int = NUM_PARTICLES, num_types: int = NUM_TYPES) -> None:
-        self._num_particles = num_particles
-        self._num_types = num_types
-
-        self._x = np.random.rand(num_particles) * WIDTH
-        self._y = np.random.rand(num_particles) * HEIGHT
-        self._velocity_x = np.zeros(num_particles)
-        self._velocity_y = np.zeros(num_particles)
-        self._types = np.random.randint(0, num_types, num_particles)
+    def __init__(self, 
+                 x: np.ndarray = np.random.normal(loc=0.0, scale=10.0, size=1000),
+                 y: np.ndarray = np.random.normal(loc=0.0, scale=10.0, size=1000), 
+                 velocity_x: np.ndarray = np.zeros(1000), 
+                 velocity_y: np.ndarray = np.zeros(1000),  
+                 types: np.ndarray = np.clip(np.rint(np.random.normal(loc=0, scale=1.0, size=1000)), 0, 4).astype(int),
+                 radius: int = 15):
+            # keine Parameter
+        self._x = x
+        self._y = y
+        self._velocity_x = velocity_x
+        self._velocity_y = velocity_y
+        self._types = types 
+        self._radius = radius
+        
 
     def shape(self) -> tuple[int]:
         return self._x.shape

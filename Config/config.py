@@ -1,5 +1,5 @@
 import numpy as np
-from Backend.particle_system import Particles
+from Backend.Particles import Particles
 from Frontend.visualize import Visualize
 from Backend.Simulation import Simulation
 from Config.constants import WIDTH, HEIGHT, NUM_TYPES, NUM_PARTICLES, COLORS_VISPY

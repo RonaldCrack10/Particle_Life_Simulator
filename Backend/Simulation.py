@@ -1,6 +1,6 @@
 import numpy as np
 import numba
-from .particle_system import Particles
+from .Particles import Particles
 from typing import Tuple, Optional
 from Config.constants import *
 
