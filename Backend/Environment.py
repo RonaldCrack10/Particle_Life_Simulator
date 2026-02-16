@@ -1,7 +1,7 @@
 import numpy as np
 from Backend.particle_system import Particles
 from typing import Tuple, Optional
-from Config.config import FRICTION
+from Config.constants import FRICTION
 import numba
 
 class Simulation:

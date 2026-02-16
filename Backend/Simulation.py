@@ -2,7 +2,7 @@ import numpy as np
 import numba
 from .particle_system import Particles
 from typing import Tuple, Optional
-from Config.config import *
+from Config.constants import *
 
 class Simulation:
 

@@ -1,5 +1,5 @@
 import numpy as np
-from Config.config import NUM_PARTICLES, NUM_TYPES, WIDTH, HEIGHT
+from Config.constants import NUM_PARTICLES, NUM_TYPES, WIDTH, HEIGHT
 
 
 class Particles:

@@ -29,7 +29,7 @@ import argparse
 # Pfad für Imports anpassen
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from Config.config import (
+from Config.constants import (
     WIDTH, HEIGHT, NUM_PARTICLES, NUM_TYPES,
     FRICTION, INTERACTION_RADIUS, PARTICLE_RADIUS, INTERACTION_MATRIX
 )
