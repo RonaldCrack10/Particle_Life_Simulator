@@ -4,7 +4,7 @@ from .particle_system import Particles
 from typing import Tuple, Optional
 from Config.config import *
 
-class Environment:
+class Simulation:
 
     def __init__(self):
         self._interactionmatrix: np.ndarray = np.array([[0, 1, 2, 3, 4],
