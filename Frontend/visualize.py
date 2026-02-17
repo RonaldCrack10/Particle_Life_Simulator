@@ -22,7 +22,19 @@ class Visualize:
 
         # initial plot
         pos = np.c_[particles.x, particles.y]  # shape (N,2)
-        self._scatter.set_data(pos, face_color="yellow", size=6)
+        COLOR_MAP = {
+        0: COLORS_VISPY[0],  # RED
+        1: COLORS_VISPY[1],  # GREEN
+        2: COLORS_VISPY[2],  # BLUE
+        3: COLORS_VISPY[3],
+        4: COLORS_VISPY[4]  # YELLOW
+        
+    }
+        colors = np.array([COLOR_MAP[t] for t in self._particles.types])
+       
+        self._scatter.set_data(pos, face_color=colors, size=6)
+
+        
 
         # make sure points are in view
         self._view.camera.set_range(x=(pos[:, 0].min(), pos[:, 0].max()),
@@ -34,7 +46,17 @@ class Visualize:
     def update(self, event):
         x, y = self._simulation.diffuse()
         pos = np.c_[x, y]
-        self._scatter.set_data(pos, face_color="yellow", size=6)
+        COLOR_MAP = {
+        0: COLORS_VISPY[0],  # RED
+        1: COLORS_VISPY[1],  # GREEN
+        2: COLORS_VISPY[2],  # BLUE
+        3: COLORS_VISPY[3],  # YELLOW
+        4: COLORS_VISPY[4]  # MAGENTA
+        
+    }
+        colors = np.array([COLOR_MAP[t] for t in self._particles.types])
+        # colors = np.array([COLOR_MAP[t] for t in self._particles.types])
+        self._scatter.set_data(pos, face_color=colors, size=6)
 
         # optional: keep camera updated if points move a lot
         # self._view.camera.set_range(x=(pos[:,0].min(), pos[:,0].max()),
