@@ -7,7 +7,7 @@ import numpy as np
 WIDTH, HEIGHT = 800, 800
 
 # Particle configuration
-NUM_TYPES = 5
+NUM_TYPES = 4
 NUM_PARTICLES = 2000  # For testing (later: 5000)
 
 # Physics parameters
@@ -30,4 +30,5 @@ COLORS_VISPY = np.array([
     [0.2, 1.0, 0.2, 1.0],   # GREEN
     [0.2, 0.2, 1.0, 1.0],   # BLUE
     [1.0, 1.0, 0.2, 1.0],   # YELLOW
+    [1.0, 0.2, 1.0, 1.0]  # MAGENTA 
 ])
