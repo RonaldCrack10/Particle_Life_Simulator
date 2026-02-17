@@ -75,3 +75,6 @@ class Particles:
     @property
     def num_types(self) -> int:
         return self._num_types
+    
+    def radius(self) -> int:
+        return self._radius
