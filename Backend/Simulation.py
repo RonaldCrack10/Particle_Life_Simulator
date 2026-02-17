@@ -35,13 +35,9 @@ class Simulation:
         maske_n = (dx*dx + dy*dy) <= radius*radius
         
         
-        if sum(maske_n) == 0:
-            return (
-                np.empty(0),
-                np.empty(0),
-                np.empty(0, dtype=int),
-                np.empty(0, dtype=int),
-                )
+        if not np.any(maske_n):
+            return None
+        
         neighbours_x = sliced_x[maske_n]
         neighbours_y = sliced_y[maske_n]
 		
@@ -67,10 +63,10 @@ class Simulation:
         indices: np.ndarray,          # (N,) -> originale Nachbar-Indizes
         ):
         # Konstanten (bei dir ggf. als Attribute speichern)
-        k: float = 1.0
+        k: float = 3.0
         m1: float = 1.0
         m2: float = 1.0
-        t: float = 0.01
+        t: float = 1
         gamma: float = 0.001
         eps: float = 1e-12
 
@@ -89,8 +85,8 @@ class Simulation:
         r_hat: np.ndarray = np.column_stack((dx / r_abs, dy / r_abs))  # (N,2)
 
         # --- k_ij holen (vektorisiert) ---
-        kij: np.ndarray = self._interactionmatrix[interactions[:, 0], interactions[:, 1]]  # (N,)
-
+        # kij: np.ndarray = self._interactionmatrix[interactions[:, 0], interactions[:, 1]]  # (N,)
+        kij: np.ndarray = interactions  # (N,) - da interactions bereits die k_ij Werte enthält
         # --- Kräfte pro Nachbar (N,2) ---
         # inverse-square: 1/r^2 (hier r2 ist schon Abstand^2)
         F_pairs: np.ndarray = (k * kij / r2)[:, None] * r_hat     # (N,2)
@@ -129,9 +125,13 @@ class Simulation:
                 
     def diffuse(self):
         for i in range(self._particles.x.shape[0]):
-            check = self.check_interactions(self._particles.x[i], self._particles.y[i], self._particles.radius, i)
-            if check == 0:
-                continue
-            neighbours_x, neighbours_y, interactions, indices = check
-            self.calc_velocity(self._particles.x[i], self._particles.y[i],neighbours_x, neighbours_y, interactions, i, indices)
-        return (self._particles.x, self._particles.y)
+            check = self.check_interactions(self._particles.x[i], self._particles.y[i], self._particles._radius, i)
+            if check is not None:
+                
+                neighbours_x, neighbours_y, interactions, indices = check
+                self.calc_velocity(self._particles.x[i], self._particles.y[i],neighbours_x, neighbours_y, interactions, i, indices)
+            t = 1
+            self._particles.x += self._particles.velocity_x * t
+            self._particles.y += self._particles.velocity_y * t
+            
+            return self._particles.x, self._particles.y
