@@ -16,8 +16,6 @@ class Simulation:
         
         self._interactionmatrix = interactionmatrix
         self._particles = particles if particles is not None else Particles()
-        self._particles_x = self._particles.x
-        self._particles_y = self._particles.y
         
         num = self._particles.x.shape[0]
         self._checked_particles: np.ndarray = np.zeros(num, dtype=int)
@@ -28,8 +26,8 @@ class Simulation:
     def check_interactions(self, position_x, position_y, radius, index) -> np.ndarray:
 		#positionen aller Particles im Radius herausfinden
         
-        sliced_x = self._particles_x[index + 1:] # Nur die Partikel nach dem aktuellen Index betrachten, um doppelte Berechnungen zu vermeiden
-        sliced_y = self._particles_y[index + 1:]
+        sliced_x = self._particles.x[index + 1:] # Nur die Partikel nach dem aktuellen Index betrachten, um doppelte Berechnungen zu vermeiden
+        sliced_y = self._particles.y[index + 1:]
         dx = sliced_x - position_x
         dy = sliced_y - position_y
         maske_n = (dx*dx + dy*dy) <= radius*radius
