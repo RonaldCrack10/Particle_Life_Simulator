@@ -7,7 +7,7 @@ import numpy as np
 WIDTH, HEIGHT = 800, 800
 
 # Particle configuration
-NUM_TYPES = 4
+NUM_TYPES = 5
 NUM_PARTICLES = 2000  # For testing (later: 5000)
 
 # Physics parameters
@@ -16,12 +16,14 @@ INTERACTION_RADIUS = 100  # Radius for particle interactions
 PARTICLE_RADIUS = 5  # Radius of visual particle representation
 
 # Interaction matrix (5x5 for 5 particle types)
+# Each row i represents interactions of type i with types 0-4
+# Positive values = attraction, Negative values = repulsion
 INTERACTION_MATRIX = np.array([
-    [0, 1, 2, 3, 4],
-    [1, 1, -1, -1, 1],
-    [2, -1, 1, -1, 1],
-    [3, -1, -1, 1, 1],
-    [4, 1, 1, 1, -1],
+    [1, -1, -1, 1, 1],      # Type 0 (RED) interactions
+    [1, 1, -1, -1, 1],      # Type 1 (GREEN) interactions
+    [-1, 1, 1, -1, 1],      # Type 2 (BLUE) interactions
+    [-1, -1, 1, 1, 1],      # Type 3 (YELLOW) interactions
+    [1, 1, 1, 1, -1],       # Type 4 (MAGENTA) interactions
 ], dtype=float)
 
 # Colors for VisPy (0.0-1.0 instead of 0-255)
