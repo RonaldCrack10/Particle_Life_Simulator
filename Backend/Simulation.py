@@ -7,11 +7,13 @@ from Config.constants import *
 class Simulation:
 
     def __init__(self,
-        interactionmatrix: np.ndarray = np.array([[0, 1, 2, 3, 4],
-                                                       [1, 1, -1, -1, 1],
-                                                       [2, -1, 1, -1, 1],
-                                                       [3, -1, -1, 1, 1],
-                                                       [4, 1, 1, 1, -1]]),
+        interactionmatrix: np.ndarray = np.array([
+            [4, -2, -1, 2, 3],      # Type 0 (RED) interactions
+            [1, 5, -1, -3, 1],      # Type 1 (GREEN) interactions
+            [-1, 1, 1, -1, 1],      # Type 2 (BLUE) interactions
+            [-1, -2, 1, 1, 6],      # Type 3 (YELLOW) interactions
+            [1, 4, 1, 1, -5],       # Type 4 (MAGENTA) interactions
+        ], dtype=float),
         particles: Particles = None):
         
         self._interactionmatrix = interactionmatrix
